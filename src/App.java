@@ -35,8 +35,8 @@ public class App {
         sc.nextLine();
         switch (opt) {
             case 1:
-                String name = getInputName();
-                float value = getInputValue();
+                String name = getInputName(null);
+                float value = getInputValue(null);
                 System.out.printf("Produto %d criado!\n", repo.register(name, value));
                 sc.nextLine();
                 break;
@@ -46,8 +46,8 @@ public class App {
             case 3:
                 Product p = repo.get(getInputCode());
                 sc.nextLine();
-                name = getInputNameOrDefault(p.getName());
-                value = getInputValueOrDefault(p.getValue());
+                name = getInputName(p.getName());
+                value = getInputValue(p.getValue());
                 p.setName(name);
                 p.setValue(value);
                 break;
@@ -72,30 +72,30 @@ public class App {
         return true;
     }
 
-    public static String getInputName() {
-        System.out.print("Nome: ");
-        return sc.nextLine();
+    public static String getInputName(String old) {
+        boolean hasOldAValue = old != null;
+        if (!hasOldAValue) {
+            System.out.print("Nome: ");
+            return sc.nextLine();
+        }
+        System.out.print("Nome(" + old + "): ");
+        String name = sc.nextLine();
+        return (name.trim().isEmpty()) ? old : name;
     }
 
-    public static float getInputValue() {
-        System.out.print("Valor: R$");
-        return sc.nextFloat();
+    public static float getInputValue(Float old) {
+        boolean hasOldAValue = old != null;
+        if (!hasOldAValue) {
+            System.out.print("Valor: R$");
+            return sc.nextFloat();
+        }
+        System.out.printf("Valor(R$%.2f): R$", old);
+        String value = sc.nextLine();
+        return (value.trim().isEmpty()) ? old : Float.parseFloat(value);
     }
 
     public static int getInputCode() {
         System.out.print("Código: ");
         return sc.nextInt();
-    }
-
-    public static String getInputNameOrDefault(String name) {
-        System.out.printf("Nome(%s): ", name);
-        String novo = sc.nextLine();
-        return novo.trim().isEmpty() ? name : novo;
-    }
-
-    public static float getInputValueOrDefault(float value) {
-        System.out.printf("Valor(R$%.2f): R$", value);
-        String novo = sc.nextLine();
-        return novo.trim().isEmpty() ? value : Float.parseFloat(novo);
     }
 }
