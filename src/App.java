@@ -8,14 +8,7 @@ public class App {
     public static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        ArrayList<Product> list = new ArrayList<>();
-        list.add(new Product(1, "vassoura", 1.00f));
-        list.add(new Product(2, "vela", 1.00f));
-        list.add(new Product(3, "mesa", 1.00f));
-        list.add(new Product(4, "tapete", 1.00f));
-        list.add(new Product(5, "pano", 1.00f));
-        list.add(new Product(6, "cadeira", 1.00f));
-        ProductRepository repo = new ProductRepository(list);
+        ProductRepository repo = new ProductRepository();
         boolean run = true;
         while (run) {
             try {
