@@ -37,7 +37,8 @@ public class ProductRepository {
     }
 
     public void remove(int id) {
-        get(id);
+        if (list.get(id - 1) == null)
+            throw new NullPointerException("Produto[" + id + "] não existe!");
         list.remove(id - 1);
     }
 
